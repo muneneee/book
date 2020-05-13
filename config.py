@@ -1,7 +1,9 @@
 import os
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://munene:12330122015@localhost/book'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = '1234'
     UPLOADED_PHOTOS_DEST ='app/static'
 
 
@@ -26,3 +28,4 @@ class DevConfig(Config):
 Config_options = {
     'development':DevConfig,
     'production':ProdConfig
+}
