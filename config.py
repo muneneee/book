@@ -12,6 +12,8 @@ class Config:
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
     
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://dolphine:dolphine@localhost/book'
+    SQLALCHEMY_TRACK_MODIFICATIONS=False
 
 class ProdConfig(Config):
     pass
@@ -24,6 +26,6 @@ class DevConfig(Config):
 
 
 Config_options = {
-'development':DevConfig,
-'production':ProdConfig
+    'development':DevConfig,
+    'production':ProdConfig
 }
