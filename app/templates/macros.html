@@ -1,3 +1,18 @@
+{% macro displayDonations(donations) %}
+    {% for donation in donations %}
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 review-card">
+        <h3>{{donation.title}}</h3>
+        <h4>  donated on {{donation.date_posted.strftime('%d/%m/%Y')}} </h4>
+        <p> {{ donation.number}} copies</p>
+       
+       
+    </div>
+    {% endfor %}
+{% endmacro %}
+
+
+
+
 {% macro displayComments(all_comments)%}
     {% if all_comments%}
 
