@@ -4,91 +4,69 @@
 {% import "bootstrap/wtf.html" as wtf %}
 
 {% block content %}
+    {% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+    {% endblock %}
 
-<div class="container">
-    <a class="btn btn-info" href="/donation">Donate</a>
-    {% if current_user.is_admin == True %}
-        <a class="btn btn-info" href="/admin">Admin dashboard</a>
-    {% endif %}
-
-
-    <ul class="nav nav-tabs" style="background-color: #2BBBAD;">
-      <li class="active"><a data-toggle="tab" href="#home" style="color: #020706;" >Primary books</a></li>
-      <li><a data-toggle="tab" href="#menu1" style="color: #020706; font-family: 'Bitter', serif;">Secondary books</a></li>
-      <li><a data-toggle="tab" href="#menu2" style="color: #020706; font-family: 'Bitter', serif;">Other books</a></li>
-    </ul>
-  
-    <div class="tab-content">
-      <div id="home" class="tab-pane fade in active">
-        <h3 style="font-family: 'Bitter', serif;">Primary Books</h3>
-        {% if  donations %}
-
-            <p style="font-family: 'Bitter', serif;">{{macro.displayDonations(primarybooks)}}</p>
-
-        {% endif %}      
-    
-      </div>
-      <div id="menu1" class="tab-pane fade">
-        <h3 style="font-family: 'Bitter', serif;">Secondary Books</h3>
-        {% if donations %}
-            
-            <p style="font-family: 'Bitter', serif;">{{macro.displayDonations(secondarybooks)}}</p>
+    <body>
+        <div class="jumbotron">
+            <h1>Donate books</h1>
+            <h3>Help us educate Kenyan children.</h3>
         
-        {% endif %}      
-    
-    
-      
-      </div>
-      <div id="menu2" class="tab-pane fade">
-        <h3 style="font-family: 'Bitter', serif;">Other Books</h3>
-        {% if donations %}
-            
-            <p style="font-family: 'Bitter', serif;">{{macro.displayDonations(otherbooks)}}</p>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="container-fluid">
+            <div class="col-md-4">
 
-        {% endif %}
-
-
-      </div>
-      
-      </div>
-    </div>
-  </div>
-  
-
-
-  <br>
-  <br>
-  <br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <div class="container">
-        <div class="col-md-4">
-            {{ wtf.quick_form(comment_form) }}
+            </div>
         </div>
-    </div>
-    <div class="container">
-        {{macro.displayComments(comment)}}
-    </div>
 
-    
+        <div class="container2">
+
+            <h4>ARTEMIS DONATIONS</h4>
+            <p>Artemis is a group of individuals who are inspired
+                to promote learning and reading habits and skills for students countrywide. We believe
+                that through exposure to reading materials, students are able to learn alot, 
+                since reading is the major source of knowledge acquisition.
+            </p>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        
+        </div>
+        </div>
+
+        <div class="container3">
+        <div class="container">
+            <div class="col-md-4">
+                {{ wtf.quick_form(comment_form) }}
+            </div>
+        </div>
+        <div class="container">
+            {{macro.displayComments(comment)}}
+        </div>
+        </div>
+
+
+    </body>
+
+
 {% endblock %}

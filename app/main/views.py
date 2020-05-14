@@ -12,12 +12,8 @@ from ..models import User,Comment
 @main.route('/')
 def index():
 
-    primarybooks=Donation_post.query.filter_by(category='Primary-books')
-    secondarybooks=Donation_post.query.filter_by(category='Secondary-books')
-    otherbooks=Donation_post.query.filter_by(category='Others')
+    
 
-
-    donations = Donation_post.query.filter_by().all()
 
 
     comment_form = CommentForm()
@@ -26,7 +22,7 @@ def index():
 
     
     title = 'Home'
-    return render_template('index.html',title = title,comment=all_comments, donations=donations, comment_form = comment_form, primarybooks=primarybooks,secondarybooks=secondarybooks,otherbooks=otherbooks)
+    return render_template('index.html',title = title,comment=all_comments, donations=donations, comment_form = comment_form)
 
 
 
@@ -62,6 +58,26 @@ def new_post():
         return redirect(url_for('main.index'))
     return render_template('donation.html', title='New Post',donation_form=donation_form)
 
+
+
+@main.route('/donations')
+def donations():
+
+    primarybooks=Donation_post.query.filter_by(category='Primary-books')
+    secondarybooks=Donation_post.query.filter_by(category='Secondary-books')
+    otherbooks=Donation_post.query.filter_by(category='Others')
+
+
+    donations = Donation_post.query.filter_by().all()
+
+
+    comment_form = CommentForm()
+
+    all_comments = Comment.query.all()
+
+    
+    title = 'Donations'
+    return render_template('donations.html',title = title, donations=donations, primarybooks=primarybooks,secondarybooks=secondarybooks,otherbooks=otherbooks)
 
 
 
