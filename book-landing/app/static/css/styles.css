@@ -1,0 +1,16 @@
+.jumbotron{
+    background-image: url(../images/images\ \(1\).jpeg);
+    background-size: cover;
+    background-attachment: fixed;
+    font-weight: normal;
+    text-decoration-color: ivory;
+
+}
+.container2 {
+    background-color: rgb(25, 27, 29);
+    /* background-image: url(); */
+}
+
+.container3{
+    background-color: rgb(173, 169, 169);
+}
