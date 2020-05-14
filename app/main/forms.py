@@ -7,3 +7,8 @@ class PostForm(FlaskForm):
     category=SelectField('Category', choices=[('Primary-books','Primary books'),('Secondary-books', 'Secondary books'),('Others','Others')])
     number = IntegerField('Number of books', validators=[DataRequired()])
     submit = SubmitField('Donate')
+
+class BeneficiaryForm(FlaskForm):
+    btitle = StringField('Title', validators=[DataRequired()])
+    content = TextAreaField('Content', validators=[DataRequired()])
+    submit = SubmitField('Post')
