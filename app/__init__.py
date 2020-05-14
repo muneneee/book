@@ -6,6 +6,10 @@ from flask_login import LoginManager
 from .flask_uploads import UploadSet,configure_uploads,IMAGES
 from flask_mail import Mail
 from flask_simplemde import SimpleMDE
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
+
+
 
 bootstrap = Bootstrap()
 #db = SQLAlchemy()
@@ -13,6 +17,7 @@ mail = Mail()
 photos = UploadSet('photos',IMAGES)
 db = SQLAlchemy()
 simple = SimpleMDE()
+admin = Admin(name='Admin', template_mode='bootstrap3')
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -22,7 +27,7 @@ def create_app(config_name):
 
     app = Flask(__name__)
     
-    
+
     app.config.from_object(Config_options[config_name])
 
     # Creating the app configurations
@@ -30,11 +35,21 @@ def create_app(config_name):
 
     # Initializing flask extensions
     bootstrap.init_app(app)
-    #db.init_app(app)
+    
     login_manager.init_app(app)
     mail.init_app(app)
     db.init_app(app)
     simple.init_app(app)
+    admin.init_app(app)
+
+
+    from .models import User,Donation_post,Controller
+    
+    admin.add_view(Controller(User, db.session))
+    admin.add_view(Controller(Donation_post, db.session))
+    
+
+
 
     # Registering the blueprint
     from .main import main as main_blueprint

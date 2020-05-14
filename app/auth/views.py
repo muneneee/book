@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, flash, request
 from . import auth
 from ..models import User
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, AdminForm
 from .. import db
 from flask_login import login_required, login_user, logout_user
 #from ..email import mail_message
@@ -46,3 +46,17 @@ def logout():
     logout_user()
     flash('You have been Successfully logged out')
     return redirect(url_for("main.index"))
+
+
+
+
+@auth.route('/create_admin', methods = ["GET", "POST"])
+def create_admin():
+    admin_form = AdminForm()
+    if admin_form.validate_on_submit():
+        new_user = User(email = admin_form.email.data, password = admin_form.password.data,is_admin=True)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return "You have created an admin account"
+    return render_template('auth/admin.html', admin_form=admin_form)
