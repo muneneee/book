@@ -43,10 +43,11 @@ def create_app(config_name):
     admin.init_app(app)
 
 
-    from .models import User,Donation_post,Controller
+    from .models import User,Donation_post, Comment,Controller
     
     admin.add_view(Controller(User, db.session))
     admin.add_view(Controller(Donation_post, db.session))
+    admin.add_view(Controller(Comment, db.session))
     
 
 

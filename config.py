@@ -1,7 +1,7 @@
 import os
 
 class Config:
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI')
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://munene:12330122015@localhost/book'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = '1234'
     UPLOADED_PHOTOS_DEST ='app/static'
