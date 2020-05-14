@@ -1,0 +1,44 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<div class="container-fluid " style="background: url(https://blog.hubspot.com/hubfs/books-every-aspiring-ceo-should-read.jpg) no-repeat; background-size: cover; font-size: large; color: crimson;">
+    <div class="row">
+        <!-- displaying  Username-->
+        <h3> {{user.username| capitalize}} </h3>
+        <hr>
+        <!--Display profile photo-->
+        <div class="col-md-3">
+            <div class="thumbnail">
+                {% if user.profile_pic_path %}
+                <img class="" src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
+                {%else%}
+                <p>No profile picture</p>
+                {% endif %}
+
+                {% if user == current_user %}
+                <form action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype="multipart/form-data">
+                    <input type="file" name="photo" class="form-control" required>
+                    <input type="submit">
+                </form>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+          <h3>School Information</h3>
+
+          <!--Displaying user bio-->
+          {% if user.bio %}
+            <p> {{user.bio}}</p>
+          {%else%}
+            <p> {{user.username| capitalize}} has no Information yet </p>
+          {% endif %}
+
+          {% if user == current_user %}
+          <a href="{{url_for('main.update_profile',uname=user.username)}} " style="color: crimson; background: cyan;"> <button type="button" class="btn">Edit profile</button></a>
+          {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
