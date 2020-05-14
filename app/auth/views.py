@@ -1,10 +1,10 @@
 from flask import render_template, redirect, url_for, flash, request
 from . import auth
 from ..models import User, Subscriber
-from .forms import SignUpForm, LoginForm
+from .forms import RegisterForm, LoginForm, AdminForm
 from .. import db
 from flask_login import login_required, login_user, logout_user
-from ..email import mail_message
+#from ..email import mail_message
 
 @auth.route('/login', methods = ["GET", "POST"])
 def login():
@@ -23,7 +23,7 @@ def login():
 
 @auth.route('/register', methods = ["GET", "POST"])
 def register():
-    form = SignUpForm()
+    form =  RegisterForm()
     if form.validate_on_submit():
         user = User(email = form.email.data, username = form.username.data, password = form.password.data)
         db.session.add(user)
@@ -34,11 +34,11 @@ def register():
             db.session.add(subscriber)
             db.session.commit()
 
-            mail_message("Welcome to Book Donors, where every story is worth sharing","email/welcome_user",user.email,user=user)
+           # mail_message("Welcome to Book Donors, where every story is worth sharing","email/welcome_user",user.email,user=user)
 
         return redirect(url_for('auth.login'))
         title = "New Account"
-    return render_template('auth/signup.html', signup_form = form)
+    return render_template('auth/register.html', register_form = form)
 
 @auth.route('/logout')
 @login_required
@@ -46,3 +46,17 @@ def logout():
     logout_user()
     flash('You have been Successfully logged out')
     return redirect(url_for("main.index"))
+
+
+
+
+@auth.route('/create_admin', methods = ["GET", "POST"])
+def create_admin():
+    admin_form = AdminForm()
+    if admin_form.validate_on_submit():
+        new_user = User(email = admin_form.email.data, password = admin_form.password.data,is_admin=True)
+        db.session.add(new_user)
+        db.session.commit()
+
+        return "You have created an admin account"
+    return render_template('auth/admin.html', admin_form=admin_form)

@@ -1,0 +1,41 @@
+<div class="navbar navbar-light" role="navigation" style="background-color:lightgrey;" >
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand" href="{{url_for('main.index')}}">HOME</a>
+
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{{url_for('main.new_post')}}">Make A Donation</a></li>
+                
+                    
+
+            </ul>
+  
+                <ul class="nav navbar-nav navbar-right">
+                    {% if current_user.is_authenticated %}
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{current_user.username}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Platform</a></li>
+                            <div class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="{{url_for('main.new_post')}}">New Donations</a></li>
+                                    
+                                                         <li><a href="{{url_for('main.new_post',uname=current_user.username)}}">Books</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
+                </ul>
+                {%endif%}
+            </div>
+    </div>
+</div>

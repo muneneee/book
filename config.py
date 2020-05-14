@@ -1,7 +1,9 @@
 import os
 
 class Config:
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = os.environ.get('SECRET KEY')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URI')
+    SQLALCHEMY_TRACK_MODIFICATIONS=False
     UPLOADED_PHOTOS_DEST ='app/static'
 
 
@@ -12,8 +14,6 @@ class Config:
     MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
     
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://dolphine:dolphine@localhost/book'
-    SQLALCHEMY_TRACK_MODIFICATIONS=False
 
 class ProdConfig(Config):
     pass
@@ -22,6 +22,7 @@ class ProdConfig(Config):
 class DevConfig(Config):
 
     DEBUG = True
+    ENV = 'development'
 
 
 
