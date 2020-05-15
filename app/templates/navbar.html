@@ -9,6 +9,16 @@
         <li><a href="#">Support us</a></li>
         <li><a href="/donations">Donations</a></li>
         <li class="active"><a href="#">Profile</a></li>
+        {% if current_user.is_authenticated %}
+          
+          <li ><a href="{{url_for('auth.logout')}}" >Sign out</a></li>
+          <li><a href="/request">Request donations</a></li>
+        {% else %}
+          <li ><a href="{{url_for('auth.login')}}" >Sign in</a></li>
+        {% endif%}
+        {% if current_user.is_admin == True %}
+          <li><a href="/admin">Admin dashboard</a></li>
+        {% endif %}
 
       </ul>
     </div>

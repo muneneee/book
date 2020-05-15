@@ -1,20 +1,17 @@
 from flask import render_template,request,redirect,url_for,abort,flash
 from . import main
-from .forms import CommentForm
-from app.models import Donation_post
+from .forms import CommentForm,BeneficiaryForm
+from app.models import Donation_post,User
 from .forms import PostForm
 from flask_login import login_required, current_user
 from .. import db
-from ..models import User,Comment
+from ..models import User,Comment,Request_post
+from ..gmail import mail_message
 
 
 
 @main.route('/')
 def index():
-
-    
-
-
 
     comment_form = CommentForm()
 
@@ -81,23 +78,30 @@ def donations():
 
 
 
-
-@main.route("/post/<int:post_id>/update", methods=['GET', 'POST'])
-
-def update_post(post_id):
-    post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
-        abort(403)
-    form = PostForm()
-    if form.validate_on_submit():
-        post.title = form.title.data
-        post.content = form.content.data
+@main.route('/request', methods=['GET', 'POST'])
+@login_required
+def new_request():
+    request_form = BeneficiaryForm()
+    if request_form.validate_on_submit():
+        request = Request_post(title=request_form.title.data, email = request_form.email.data,category=request_form.category.data,number=request_form.number.data)
+        db.session.add(request)
         db.session.commit()
-        flash('Your Donation has been updated!', 'success')
-        return redirect(url_for('posts.post', post_id=post.id))
-    elif request.method == 'GET':
-        form.title.data = post.title
-        form.content.data = post.content
-    return render_template('index.html', title='Update Donation',form=form, legend='Update Donation')
+
+        mail_message("Your request is been processed","gmail/process",request.email,request=request)
+
+    
+
+        flash('Your Donation has been received!', 'success')
+        return redirect(url_for('main.index'))
+    return render_template('request.html', title='New Request',request_form=request_form)
 
 
+
+
+
+@main.route('/approved')
+def approval():
+    if Request_post.approved == True:
+        return mail_message("Your request has been approved","gmail/approval",request.email,request = request)
+
+    return redirect(url_for('main.index'))
