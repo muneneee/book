@@ -6,13 +6,21 @@
 {% block content %}
     {% block styles%}
     {{ super() }}
-    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+        <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
     {% endblock %}
 
-    <body>
+    
         <div class="jumbotron">
             <h1>Donate books</h1>
             <h3>Help us educate Kenyan children.</h3>
+
+            
+            <p>Artemis is a group of individuals who are inspired
+                to promote learning and reading habits and skills for students countrywide. We believe
+                that through exposure to reading materials, students are able to learn alot, 
+                since reading is the major source of knowledge acquisition.
+            </p>
         
         <br>
         <br>
@@ -29,32 +37,9 @@
             </div>
         </div>
 
-        <div class="container2">
-
-            <h4>ARTEMIS DONATIONS</h4>
-            <p>Artemis is a group of individuals who are inspired
-                to promote learning and reading habits and skills for students countrywide. We believe
-                that through exposure to reading materials, students are able to learn alot, 
-                since reading is the major source of knowledge acquisition.
-            </p>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
         
-        </div>
-        </div>
 
-        <div class="container3">
+        
         <div class="container">
             <div class="col-md-4">
                 {{ wtf.quick_form(comment_form) }}
@@ -63,10 +48,10 @@
         <div class="container">
             {{macro.displayComments(comment)}}
         </div>
-        </div>
+        
 
 
-    </body>
+
 
 
 {% endblock %}

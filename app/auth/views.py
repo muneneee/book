@@ -23,14 +23,14 @@ def login():
 
 @auth.route('/register', methods = ["GET", "POST"])
 def register():
-    form =  RegisterForm()
-    if form.validate_on_submit():
-        user = User(email = form.email.data, username = form.username.data, password = form.password.data)
+    request_form =  RegisterForm()
+    if request_form.validate_on_submit():
+        user = User(email = request_form.email.data, username = request_form.username.data, password = request_form.password.data)
         db.session.add(user)
         db.session.commit()
 
-        if form.subscribe.data:
-            subscriber = Subscriber(email = form.email.data, username = form.username.data)
+        if request_form.subscribe.data:
+            subscriber = Subscriber(email = request_form.email.data, username = request_form.username.data)
             db.session.add(subscriber)
             db.session.commit()
 
@@ -38,7 +38,7 @@ def register():
 
         return redirect(url_for('auth.login'))
         title = "New Account"
-    return render_template('auth/register.html', register_form = form)
+    return render_template('auth/register.html', request_form = request_form)
 
 @auth.route('/logout')
 @login_required
@@ -54,7 +54,7 @@ def logout():
 def create_admin():
     admin_form = AdminForm()
     if admin_form.validate_on_submit():
-        new_user = User(email = admin_form.email.data, password = admin_form.password.data,is_admin=True)
+        new_user = User(email = admin_form.email.data, password = admin_form.password.data,is_admin=False)
         db.session.add(new_user)
         db.session.commit()
 

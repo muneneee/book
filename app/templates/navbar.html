@@ -6,13 +6,17 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="/">Home</a></li>
         <li><a href="{{url_for('main.new_post')}}">Donate</a></li>
-        <li><a href="#">Support us</a></li>
         <li><a href="/donations">Donations</a></li>
-        <li class="active"><a href="#">Profile</a></li>
+        <li><a href="/request">Request donations</a></li>
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+
         {% if current_user.is_authenticated %}
+
           
           <li ><a href="{{url_for('auth.logout')}}" >Sign out</a></li>
-          <li><a href="/request">Request donations</a></li>
+          
         {% else %}
           <li ><a href="{{url_for('auth.login')}}" >Sign in</a></li>
         {% endif%}

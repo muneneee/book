@@ -1,5 +1,5 @@
 .jumbotron{
-    background-image: url(../images/images\ \(1\).jpeg);
+    background-image: url(../images/bookjpg);
     background-size: cover;
     background-attachment: fixed;
     font-weight: normal;
@@ -7,10 +7,16 @@
 
 }
 .container2 {
-    background-color: rgb(25, 27, 29);
+    background-color: rgb(173, 169, 169);
+    text-align: center;
     /* background-image: url(); */
 }
 
 .container3{
     background-color: rgb(173, 169, 169);
+}
+
+h1{
+    color: white;
+
 }
